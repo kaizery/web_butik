@@ -604,8 +604,6 @@ export default function SuperAdminPortalPage() {
             </div>
           </div>
         )}
-          </div>
-        )}
       </main>
 
       {/* Add Staff Account Modal */}
