@@ -126,8 +126,8 @@ export async function POST(request: Request) {
         await tx.activityLog.create({
           data: {
             userId: userId ? Number(userId) : null,
+            orderId: newOrder.id,
             action: "ONLINE_ORDER_PLACED",
-            entityType: "ORDER",
             entityId: newOrder.id,
             entityName: invoiceNumber,
             details: `Pesanan online ${invoiceNumber} senilai Rp ${totalAmount.toLocaleString("id-ID")} dibuat oleh ${customerName} (${paymentMethod}).`,
