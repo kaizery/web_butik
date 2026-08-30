@@ -144,7 +144,7 @@ export function Navbar({ cartCount, onOpenCart }: NavbarProps) {
               </button>
             </div>
           ) : (
-            <Link href="/login">
+            <Link href="/login" className={styles.desktopLoginBtn}>
               <Button variant="ghost" size="sm" leftIcon={<User size={16} />}>
                 Masuk
               </Button>
