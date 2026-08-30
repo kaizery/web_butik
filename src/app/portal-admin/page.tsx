@@ -459,56 +459,58 @@ export default function SuperAdminPortalPage() {
               </Button>
             </div>
 
-            <table className={styles.logsTable}>
-              <thead>
-                <tr>
-                  <th>Waktu</th>
-                  <th>Aktor (User)</th>
-                  <th>Aksi (Event)</th>
-                  <th>Objek</th>
-                  <th>Rincian Aktivitas</th>
-                </tr>
-              </thead>
-              <tbody>
-                {isLoadingLogs ? (
+            <div className={styles.tableWrapper}>
+              <table className={styles.logsTable}>
+                <thead>
                   <tr>
-                    <td colSpan={5} style={{ textAlign: "center", padding: "2rem" }}>
-                      Memuat log aktivitas...
-                    </td>
+                    <th>Waktu</th>
+                    <th>Aktor (User)</th>
+                    <th>Aksi (Event)</th>
+                    <th>Objek</th>
+                    <th>Rincian Aktivitas</th>
                   </tr>
-                ) : logs.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} style={{ textAlign: "center", padding: "2rem" }}>
-                      Belum ada catatan aktivitas tercatat.
-                    </td>
-                  </tr>
-                ) : (
-                  logs.map((log) => (
-                    <tr key={log.id}>
-                      <td style={{ whiteSpace: "nowrap" }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
-                          <Clock size={13} color="var(--tertiary)" />
-                          <span>{new Date(log.createdAt).toLocaleString("id-ID")}</span>
-                        </div>
-                      </td>
-                      <td>
-                        <strong>{log.user?.name || "Sistem"}</strong>
-                        <span style={{ display: "block", fontSize: "0.6875rem", color: "var(--on-surface-variant)" }}>
-                          {log.user?.role || "SYSTEM"}
-                        </span>
-                      </td>
-                      <td>
-                        <span className={styles.actionPill}>{log.action}</span>
-                      </td>
-                      <td>{log.entityName || "-"}</td>
-                      <td style={{ fontSize: "0.75rem", color: "var(--on-surface-variant)", maxWidth: "350px", wordBreak: "break-word" }}>
-                        {log.details}
+                </thead>
+                <tbody>
+                  {isLoadingLogs ? (
+                    <tr>
+                      <td colSpan={5} style={{ textAlign: "center", padding: "2rem" }}>
+                        Memuat log aktivitas...
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : logs.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} style={{ textAlign: "center", padding: "2rem" }}>
+                        Belum ada catatan aktivitas tercatat.
+                      </td>
+                    </tr>
+                  ) : (
+                    logs.map((log) => (
+                      <tr key={log.id}>
+                        <td style={{ whiteSpace: "nowrap" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                            <Clock size={13} color="var(--tertiary)" />
+                            <span>{new Date(log.createdAt).toLocaleString("id-ID")}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <strong>{log.user?.name || "Sistem"}</strong>
+                          <span style={{ display: "block", fontSize: "0.6875rem", color: "var(--on-surface-variant)" }}>
+                            {log.user?.role || "SYSTEM"}
+                          </span>
+                        </td>
+                        <td>
+                          <span className={styles.actionPill}>{log.action}</span>
+                        </td>
+                        <td>{log.entityName || "-"}</td>
+                        <td style={{ fontSize: "0.75rem", color: "var(--on-surface-variant)", maxWidth: "350px", wordBreak: "break-word" }}>
+                          {log.details}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
@@ -535,63 +537,67 @@ export default function SuperAdminPortalPage() {
               </Button>
             </div>
 
-            <table className={styles.staffTable}>
-              <thead>
-                <tr>
-                  <th>Nama Karyawan</th>
-                  <th>Alamat Email</th>
-                  <th>No. WhatsApp</th>
-                  <th>Hak Akses (Role)</th>
-                  <th>Tanggal Didaftarkan</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {isLoadingStaff ? (
+            <div className={styles.tableWrapper}>
+              <table className={styles.staffTable}>
+                <thead>
                   <tr>
-                    <td colSpan={6} style={{ textAlign: "center", padding: "2rem" }}>
-                      Memuat daftar staf...
-                    </td>
+                    <th>Nama Karyawan</th>
+                    <th>Alamat Email</th>
+                    <th>No. WhatsApp</th>
+                    <th>Hak Akses (Role)</th>
+                    <th>Tanggal Didaftarkan</th>
+                    <th>Aksi</th>
                   </tr>
-                ) : staffList.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} style={{ textAlign: "center", padding: "2rem" }}>
-                      Belum ada staf kasir yang didaftarkan.
-                    </td>
-                  </tr>
-                ) : (
-                  staffList.map((st) => (
-                    <tr key={st.id}>
-                      <td style={{ fontWeight: 600 }}>{st.name}</td>
-                      <td>{st.email}</td>
-                      <td>{st.phone || "-"}</td>
-                      <td>
-                        <span className={st.role === "ADMIN" ? styles.roleAdmin : styles.roleCashier}>
-                          {st.role === "ADMIN" ? "SUPER ADMIN" : "KASIR BUTIK"}
-                        </span>
-                      </td>
-                      <td>{new Date(st.createdAt).toLocaleDateString("id-ID")}</td>
-                      <td>
-                        <button
-                          type="button"
-                          className={styles.deleteStaffBtn}
-                          disabled={st.id === currentUser?.id}
-                          onClick={() => handleDeleteStaff(st.id, st.name)}
-                          title={
-                            st.id === currentUser?.id
-                              ? "Akun Anda saat ini (tidak dapat dihapus)"
-                              : `Hapus akun ${st.name}`
-                          }
-                        >
-                          <Trash2 size={13} />
-                          <span>Hapus</span>
-                        </button>
+                </thead>
+                <tbody>
+                  {isLoadingStaff ? (
+                    <tr>
+                      <td colSpan={6} style={{ textAlign: "center", padding: "2rem" }}>
+                        Memuat daftar staf...
                       </td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+                  ) : staffList.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} style={{ textAlign: "center", padding: "2rem" }}>
+                        Belum ada staf kasir yang didaftarkan.
+                      </td>
+                    </tr>
+                  ) : (
+                    staffList.map((st) => (
+                      <tr key={st.id}>
+                        <td style={{ fontWeight: 600 }}>{st.name}</td>
+                        <td>{st.email}</td>
+                        <td>{st.phone || "-"}</td>
+                        <td>
+                          <span className={st.role === "ADMIN" ? styles.roleAdmin : styles.roleCashier}>
+                            {st.role === "ADMIN" ? "SUPER ADMIN" : "KASIR BUTIK"}
+                          </span>
+                        </td>
+                        <td>{new Date(st.createdAt).toLocaleDateString("id-ID")}</td>
+                        <td>
+                          <button
+                            type="button"
+                            className={styles.deleteStaffBtn}
+                            disabled={st.id === currentUser?.id}
+                            onClick={() => handleDeleteStaff(st.id, st.name)}
+                            title={
+                              st.id === currentUser?.id
+                                ? "Akun Anda saat ini (tidak dapat dihapus)"
+                                : `Hapus akun ${st.name}`
+                            }
+                          >
+                            <Trash2 size={13} />
+                            <span>Hapus</span>
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
           </div>
         )}
       </main>

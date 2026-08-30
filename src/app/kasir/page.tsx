@@ -1045,115 +1045,115 @@ export default function KasirPage() {
               </Button>
             </div>
 
-            {/* Inventory Table */}
-            <table className={styles.stockTable}>
-              <thead>
-                <tr>
-                  <th>Busana</th>
-                  <th>Kategori</th>
-                  <th>Harga Dasar</th>
-                  <th>Ukuran & SKU</th>
-                  <th>Stok Tersedia</th>
-                  <th>Penyesuaian Cepat</th>
-                  <th>Kelola & Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                {isLoadingProducts ? (
+            <div className={styles.tableWrapper}>
+              <table className={styles.stockTable}>
+                <thead>
                   <tr>
-                    <td colSpan={7} style={{ textAlign: "center", padding: "2rem" }}>
-                      Memuat stok...
-                    </td>
+                    <th>Busana</th>
+                    <th>Kategori</th>
+                    <th>Harga Dasar</th>
+                    <th>Ukuran & SKU</th>
+                    <th>Stok Tersedia</th>
+                    <th>Penyesuaian Cepat</th>
+                    <th>Kelola & Aksi</th>
                   </tr>
-                ) : (
-                  products.map((p) =>
-                    p.variants.map((v, idx) => (
-                      <tr key={v.id}>
-                        {idx === 0 ? (
-                          <td rowSpan={p.variants.length} style={{ fontWeight: 600 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                              <img
-                                src={p.images[0]?.imageUrl || "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=100&q=80"}
-                                alt={p.title}
-                                style={{ width: "45px", height: "55px", objectFit: "cover", borderRadius: "4px" }}
-                              />
-                              <div>
-                                <span>{p.title}</span>
-                                <span style={{ display: "block", fontSize: "0.75rem", color: "var(--on-surface-variant)" }}>
-                                  {p.material || "Sutra / Linen"}
-                                </span>
+                </thead>
+                <tbody>
+                  {isLoadingProducts ? (
+                    <tr>
+                      <td colSpan={7} style={{ textAlign: "center", padding: "2rem" }}>
+                        Memuat stok...
+                      </td>
+                    </tr>
+                  ) : (
+                    products.map((p) =>
+                      p.variants.map((v, idx) => (
+                        <tr key={v.id}>
+                          {idx === 0 ? (
+                            <td rowSpan={p.variants.length} style={{ fontWeight: 600 }}>
+                              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                                <img
+                                  src={p.images[0]?.imageUrl || "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=100&q=80"}
+                                  alt={p.title}
+                                  style={{ width: "45px", height: "55px", objectFit: "cover", borderRadius: "4px" }}
+                                />
+                                <div>
+                                  <span>{p.title}</span>
+                                  <span style={{ display: "block", fontSize: "0.75rem", color: "var(--on-surface-variant)" }}>
+                                    {p.material || "Sutra / Linen"}
+                                  </span>
+                                </div>
                               </div>
+                            </td>
+                          ) : null}
+
+                          {idx === 0 ? (
+                            <td rowSpan={p.variants.length}>{p.category?.name || "Boutique"}</td>
+                          ) : null}
+
+                          {idx === 0 ? (
+                            <td rowSpan={p.variants.length} style={{ fontWeight: 600 }}>
+                              {formatRupiah(Number(p.basePrice))}
+                            </td>
+                          ) : null}
+
+                          <td>
+                            <strong>Ukuran {v.size}</strong> ({v.color})<br />
+                            <span style={{ fontSize: "0.6875rem", color: "var(--outline)" }}>{v.sku}</span>
+                          </td>
+
+                          <td>
+                            {v.stock < 5 ? (
+                              <span className={styles.stockAlert}>
+                                <AlertTriangle size={14} /> Sisa {v.stock} pcs (Menipis!)
+                              </span>
+                            ) : (
+                              <span className={styles.stockGood}>{v.stock} pcs</span>
+                            )}
+                          </td>
+
+                          <td>
+                            <div className={styles.stockControlGroup}>
+                              <button
+                                type="button"
+                                className={styles.stockBtn}
+                                onClick={() => handleAdjustStock(v.id, 1)}
+                                title="Tambah 1"
+                              >
+                                +1
+                              </button>
+                              <button
+                                type="button"
+                                className={styles.stockBtn}
+                                onClick={() => handleAdjustStock(v.id, 5)}
+                                title="Restock 5 pcs"
+                              >
+                                +5
+                              </button>
+                              <button
+                                type="button"
+                                className={styles.stockBtn}
+                                onClick={() => handleAdjustStock(v.id, 10)}
+                                title="Restock 10 pcs"
+                              >
+                                +10
+                              </button>
+                              <button
+                                type="button"
+                                className={styles.stockBtn}
+                                disabled={v.stock <= 0}
+                                onClick={() => handleAdjustStock(v.id, -1)}
+                                title="Kurangi 1 (Rusak/Cacat)"
+                              >
+                                -1
+                              </button>
                             </div>
                           </td>
-                        ) : null}
 
-                        {idx === 0 ? (
-                          <td rowSpan={p.variants.length}>{p.category?.name || "Boutique"}</td>
-                        ) : null}
-
-                        {idx === 0 ? (
-                          <td rowSpan={p.variants.length} style={{ fontWeight: 600 }}>
-                            {formatRupiah(Number(p.basePrice))}
-                          </td>
-                        ) : null}
-
-                        <td>
-                          <strong>Ukuran {v.size}</strong> ({v.color})<br />
-                          <span style={{ fontSize: "0.6875rem", color: "var(--outline)" }}>{v.sku}</span>
-                        </td>
-
-                        <td>
-                          {v.stock < 5 ? (
-                            <span className={styles.stockAlert}>
-                              <AlertTriangle size={14} /> Sisa {v.stock} pcs (Menipis!)
-                            </span>
-                          ) : (
-                            <span className={styles.stockGood}>{v.stock} pcs</span>
-                          )}
-                        </td>
-
-                        <td>
-                          <div className={styles.stockControlGroup}>
-                            <button
-                              type="button"
-                              className={styles.stockBtn}
-                              onClick={() => handleAdjustStock(v.id, 1)}
-                              title="Tambah 1"
-                            >
-                              +1
-                            </button>
-                            <button
-                              type="button"
-                              className={styles.stockBtn}
-                              onClick={() => handleAdjustStock(v.id, 5)}
-                              title="Restock 5 pcs"
-                            >
-                              +5
-                            </button>
-                            <button
-                              type="button"
-                              className={styles.stockBtn}
-                              onClick={() => handleAdjustStock(v.id, 10)}
-                              title="Restock 10 pcs"
-                            >
-                              +10
-                            </button>
-                            <button
-                              type="button"
-                              className={styles.stockBtn}
-                              disabled={v.stock <= 0}
-                              onClick={() => handleAdjustStock(v.id, -1)}
-                              title="Kurangi 1 (Rusak/Cacat)"
-                            >
-                              -1
-                            </button>
-                          </div>
-                        </td>
-
-                        {idx === 0 ? (
-                          <td rowSpan={p.variants.length}>
-                            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                              <button
+                          {idx === 0 ? (
+                            <td rowSpan={p.variants.length}>
+                              <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                                <button
                                 type="button"
                                 className={styles.editDetailBtn}
                                 onClick={() => handleOpenEditDetail(p)}
@@ -1181,6 +1181,7 @@ export default function KasirPage() {
               </tbody>
             </table>
           </div>
+        </div>
         )}
       </main>
 
