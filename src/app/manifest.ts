@@ -2,14 +2,14 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    id: "aura-boutique-pos-app",
+    id: "/login",
     name: "AURA Boutique & POS Atelier",
     short_name: "AURA POS",
     description: "Sistem Kasir POS & Manajemen Butik Eksklusif AURA Atelier",
     start_url: "/login",
     scope: "/",
     display: "standalone",
-    orientation: "portrait-primary",
+    orientation: "portrait",
     background_color: "#fff8f6",
     theme_color: "#6f5955",
     categories: ["business", "shopping"],
