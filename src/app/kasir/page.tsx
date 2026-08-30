@@ -542,30 +542,44 @@ export default function KasirPage() {
     <div className={styles.pageContainer}>
       {/* Top Header */}
       <header className={styles.header}>
-        <div className={styles.brandGroup}>
-          <Link href="/">
-            <span className={styles.brandLogo}>AURA</span>
-          </Link>
-          <span className={styles.portalBadge}>Portal Kasir Butik</span>
+        <div className={styles.headerTop}>
+          <div className={styles.brandGroup}>
+            <Link href="/">
+              <span className={styles.brandLogo}>AURA</span>
+            </Link>
+            <span className={styles.portalBadge}>Kasir Butik</span>
+          </div>
+
+          <div className={styles.headerActions}>
+            {currentUser?.role === "ADMIN" && (
+              <Link href="/portal-admin">
+                <Button variant="secondary" size="sm" leftIcon={<ShieldCheck size={14} />}>
+                  <span className={styles.btnFullText}>Portal Admin</span>
+                  <span className={styles.btnShortText}>Admin</span>
+                </Button>
+              </Link>
+            )}
+
+            <Link href="/" target="_blank">
+              <Button variant="ghost" size="sm" rightIcon={<ExternalLink size={14} />}>
+                <span className={styles.btnFullText}>Toko Depan</span>
+                <span className={styles.btnShortText}>Toko</span>
+              </Button>
+            </Link>
+
+            <Button variant="ghost" size="sm" onClick={handleLogout} leftIcon={<LogOut size={16} />}>
+              <span className={styles.btnFullText}>Keluar</span>
+            </Button>
+          </div>
         </div>
 
-        <div className={styles.staffInfo}>
+        <div className={styles.headerBottom}>
           <div className={styles.staffPill}>
-            <ShieldCheck size={15} color="var(--tertiary)" />
+            <ShieldCheck size={14} color="var(--tertiary)" />
             <span>
               {currentUser?.name || "Kasir Toko"} ({currentUser?.role || "CASHIER"})
             </span>
           </div>
-
-          <Link href="/" target="_blank">
-            <Button variant="ghost" size="sm" rightIcon={<ExternalLink size={14} />}>
-              Buka Toko Depan
-            </Button>
-          </Link>
-
-          <Button variant="ghost" size="sm" onClick={handleLogout} leftIcon={<LogOut size={16} />}>
-            Keluar
-          </Button>
         </div>
       </header>
 
