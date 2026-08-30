@@ -8,7 +8,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#6f5955",
+  themeColor: "#fff8f6",
+  colorScheme: "light",
 };
 
 export const metadata: Metadata = {
@@ -26,6 +27,10 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
+  other: {
+    "color-scheme": "light",
+    "supported-color-schemes": "light",
+  },
 };
 
 export default function RootLayout({
@@ -34,10 +39,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang="id" style={{ colorScheme: "light" }}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="color-scheme" content="light" />
+        <meta name="supported-color-schemes" content="light" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/apple-icon" />
       </head>

@@ -244,34 +244,40 @@ export default function SuperAdminPortalPage() {
     <div className={styles.pageContainer}>
       {/* Top Header */}
       <header className={styles.header}>
-        <div className={styles.brandGroup}>
-          <Link href="/">
-            <span className={styles.brandLogo}>AURA</span>
-          </Link>
-          <span className={styles.portalBadge}>Super Admin & Owner Portal</span>
-        </div>
-
-        <div className={styles.adminInfo}>
-          <div className={styles.adminPill}>
-            <ShieldCheck size={16} />
-            <span>{currentUser?.name || "Super Admin"}</span>
+        <div className={styles.headerTop}>
+          <div className={styles.brandGroup}>
+            <Link href="/">
+              <span className={styles.brandLogo}>AURA</span>
+            </Link>
+            <span className={styles.portalBadge}>Admin Portal</span>
           </div>
 
-          <Link href="/kasir">
-            <Button variant="secondary" size="sm" leftIcon={<ShoppingBag size={14} />}>
-              Buka Portal Kasir
-            </Button>
-          </Link>
+          <div className={styles.headerActions}>
+            <Link href="/kasir">
+              <Button variant="secondary" size="sm" leftIcon={<ShoppingBag size={14} />}>
+                <span className={styles.btnFullText}>Portal Kasir</span>
+                <span className={styles.btnShortText}>Kasir</span>
+              </Button>
+            </Link>
 
-          <Link href="/" target="_blank">
-            <Button variant="ghost" size="sm" rightIcon={<ExternalLink size={14} />}>
-              Toko Depan
-            </Button>
-          </Link>
+            <Link href="/" target="_blank">
+              <Button variant="ghost" size="sm" rightIcon={<ExternalLink size={14} />}>
+                <span className={styles.btnFullText}>Toko Depan</span>
+                <span className={styles.btnShortText}>Toko</span>
+              </Button>
+            </Link>
 
-          <Button variant="ghost" size="sm" onClick={handleLogout} leftIcon={<LogOut size={16} />}>
-            Keluar
-          </Button>
+            <Button variant="ghost" size="sm" onClick={handleLogout} leftIcon={<LogOut size={16} />}>
+              <span className={styles.btnFullText}>Keluar</span>
+            </Button>
+          </div>
+        </div>
+
+        <div className={styles.headerBottom}>
+          <div className={styles.adminPill}>
+            <ShieldCheck size={14} />
+            <span>{currentUser?.name || "Super Admin"}</span>
+          </div>
         </div>
       </header>
 

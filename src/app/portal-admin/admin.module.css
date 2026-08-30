@@ -5,7 +5,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100vw;
   overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 /* Header */
@@ -14,10 +16,10 @@
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border-bottom: 1px solid var(--outline-variant);
-  padding: 1rem 1.75rem;
+  padding: 0.85rem 1.5rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.65rem;
   position: sticky;
   top: 0;
   z-index: 50;
@@ -25,11 +27,19 @@
   box-sizing: border-box;
 }
 
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
 .brandGroup {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  flex-wrap: wrap;
 }
 
 .brandLogo {
@@ -54,18 +64,33 @@
   white-space: nowrap;
 }
 
-.adminInfo {
+.headerActions {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.5rem;
   flex-wrap: wrap;
+}
+
+.btnFullText {
+  display: inline;
+}
+
+.btnShortText {
+  display: none;
+}
+
+.headerBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .adminPill {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.35rem 0.75rem;
+  padding: 0.3rem 0.75rem;
   border-radius: var(--radius-full);
   background-color: var(--primary-container);
   color: var(--on-primary-container);
@@ -78,9 +103,9 @@
 .tabNav {
   background-color: var(--surface-container-low);
   border-bottom: 1px solid var(--outline-variant);
-  padding: 0.65rem 1.25rem;
+  padding: 0.5rem 1rem;
   display: flex;
-  gap: 0.65rem;
+  gap: 0.5rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -96,7 +121,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.55rem 1.25rem;
+  padding: 0.5rem 1.15rem;
   border-radius: var(--radius-full);
   background-color: transparent;
   border: 1px solid transparent;
@@ -123,11 +148,12 @@
 /* Main Content */
 .mainContent {
   flex: 1;
-  padding: 1.75rem 1.25rem;
+  padding: 1.5rem 1rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Table Responsive Wrapper */
@@ -147,16 +173,16 @@
    ========================================= */
 .kpiGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .kpiCard {
   background-color: var(--surface-container-lowest);
   border: 1px solid var(--outline-variant);
   border-radius: var(--radius-lg);
-  padding: 1.25rem;
+  padding: 1.15rem;
   box-shadow: var(--shadow-warm-sm);
   display: flex;
   flex-direction: column;
@@ -374,29 +400,37 @@
 
 @media (max-width: 640px) {
   .header {
-    padding: 0.75rem 1rem;
+    padding: 0.65rem 0.85rem;
   }
   
   .brandLogo {
     font-size: 1.35rem;
   }
   
+  .btnFullText {
+    display: none;
+  }
+  
+  .btnShortText {
+    display: inline;
+  }
+  
   .tabNav {
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.75rem;
   }
   
   .tabButton {
-    padding: 0.45rem 1rem;
+    padding: 0.4rem 0.85rem;
     font-size: 0.75rem;
   }
   
   .mainContent {
-    padding: 1rem;
+    padding: 0.85rem;
   }
   
   .kpiGrid {
     grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
   
   .kpiValue {
@@ -404,7 +438,7 @@
   }
   
   .kpiCard {
-    padding: 1rem;
+    padding: 0.85rem;
   }
   
   .staffHeader {
