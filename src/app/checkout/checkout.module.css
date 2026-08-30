@@ -1,0 +1,388 @@
+.pageContainer {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--background);
+  color: var(--on-background);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Main Container */
+.checkoutMain {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  margin-bottom: 1.5rem;
+}
+
+.breadcrumb a {
+  color: var(--on-surface-variant);
+  transition: color 0.15s ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--primary);
+}
+
+.pageHeader {
+  margin-bottom: 2rem;
+}
+
+.pageTitle {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 500;
+  color: var(--on-surface);
+  line-height: 1.15;
+  margin-bottom: 0.35rem;
+}
+
+.pageSubtitle {
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
+}
+
+/* Two-Column Grid */
+.checkoutGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Left Form Sections */
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.card {
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-warm-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-sizing: border-box;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-bottom: 1px solid var(--outline-variant);
+  padding-bottom: 0.85rem;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+/* Payment Method Cards */
+.paymentGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.paymentOption {
+  border: 1.5px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 1rem 0.75rem;
+  background-color: var(--surface-container-low);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+}
+
+.paymentOption:hover {
+  border-color: var(--primary);
+  background-color: var(--surface-container);
+}
+
+.paymentOptionActive {
+  border-color: var(--primary);
+  background-color: #ffffff;
+  box-shadow: var(--shadow-warm);
+  position: relative;
+}
+
+.paymentName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.paymentSub {
+  font-size: 0.6875rem;
+  color: var(--on-surface-variant);
+}
+
+/* Payment Instruction Box */
+.instructionBox {
+  background-color: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bankAccountCard {
+  background-color: #ffffff;
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.qrisBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  background-color: #ffffff;
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--outline-variant);
+}
+
+.qrisImage {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  background-color: #ffffff;
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+}
+
+.uploadZone {
+  border: 2px dashed var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.uploadZone:hover {
+  border-color: var(--primary);
+  background-color: var(--surface-container-lowest);
+}
+
+.previewImage {
+  max-width: 100%;
+  max-height: 180px;
+  border-radius: var(--radius-md);
+  object-fit: contain;
+}
+
+/* Right Summary Panel */
+.summaryPanel {
+  position: sticky;
+  top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.itemList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-height: 280px;
+  overflow-y: auto;
+  border-bottom: 1px solid var(--outline-variant);
+  padding-bottom: 1rem;
+}
+
+.itemRow {
+  display: flex;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.itemImg {
+  width: 55px;
+  height: 65px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid var(--outline-variant);
+}
+
+.itemDetails {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTitle {
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.itemMeta {
+  font-size: 0.75rem;
+  color: var(--on-surface-variant);
+}
+
+.itemPrice {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.costBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.costRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+}
+
+.grandTotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--outline-variant);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.grandTotalAmount {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  color: var(--on-surface);
+}
+
+/* Order Success Modal */
+.successBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 27, 25, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.successCard {
+  width: 100%;
+  max-width: 520px;
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 1.75rem;
+  box-shadow: var(--shadow-warm-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  box-sizing: border-box;
+  animation: scaleUp 0.25s ease;
+}
+
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.successIconBadge {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invoicePill {
+  background-color: var(--surface-container-high);
+  border: 1px solid var(--outline-variant);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--on-surface);
+}
+
+/* Mobile Breakpoints */
+@media (max-width: 900px) {
+  .checkoutGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryPanel {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .checkoutMain {
+    padding: 1.25rem 0.85rem 4rem 0.85rem;
+  }
+
+  .paymentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+
+  .card {
+    padding: 1.25rem 1rem;
+  }
+}
