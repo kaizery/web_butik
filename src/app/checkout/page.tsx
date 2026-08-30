@@ -555,8 +555,17 @@ export default function CheckoutPage() {
                   </Button>
                 </a>
 
+                <Link
+                  href={`/lacak?invoice=${orderResult.invoiceNumber}`}
+                  style={{ width: "100%", textDecoration: "none" }}
+                >
+                  <Button variant="secondary" fullWidth size="md" rightIcon={<Truck size={16} />}>
+                    Lacak Status Pesanan Ini
+                  </Button>
+                </Link>
+
                 <Link href="/" style={{ width: "100%", textDecoration: "none" }}>
-                  <Button variant="secondary" fullWidth size="md">
+                  <Button variant="ghost" fullWidth size="sm">
                     Kembali ke Beranda Toko
                   </Button>
                 </Link>

@@ -101,6 +101,11 @@ export function Navbar({ cartCount, onOpenCart }: NavbarProps) {
                 </button>
               </li>
             ))}
+            <li className={styles.navItem}>
+              <Link href="/lacak" className={styles.navLink}>
+                Lacak Pesanan
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -188,6 +193,13 @@ export function Navbar({ cartCount, onOpenCart }: NavbarProps) {
               {sec.label}
             </button>
           ))}
+          <Link
+            href="/lacak"
+            className={styles.mobileCategoryLink}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            🚚 Lacak Status Pesanan
+          </Link>
           <div style={{ paddingTop: "0.75rem", borderTop: "1px solid var(--outline-variant)" }}>
             {currentUser ? (
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>

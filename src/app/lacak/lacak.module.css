@@ -1,0 +1,320 @@
+.pageContainer {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--background);
+  color: var(--on-background);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.mainContent {
+  flex: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.headerSection {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.pageTitle {
+  font-family: var(--font-serif);
+  font-size: 2.35rem;
+  font-weight: 500;
+  color: var(--on-surface);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.pageSubtitle {
+  font-size: 0.9375rem;
+  color: var(--on-surface-variant);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* Search Box */
+.searchBox {
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-warm);
+  margin-bottom: 2.5rem;
+}
+
+.searchForm {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* Order Result Card */
+.orderCard {
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-warm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.orderCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1px solid var(--outline-variant);
+  padding-bottom: 1.25rem;
+}
+
+.invoiceTitle {
+  font-family: monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.orderDate {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  margin-top: 0.2rem;
+}
+
+/* Timeline Stepper */
+.stepperWrapper {
+  padding: 1rem 0;
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  gap: 0.5rem;
+}
+
+.stepper::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 12%;
+  right: 12%;
+  height: 3px;
+  background-color: var(--outline-variant);
+  z-index: 1;
+}
+
+.stepItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  gap: 0.5rem;
+}
+
+.stepCircle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--surface-container);
+  border: 2px solid var(--outline-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--outline);
+  transition: all 0.25s ease;
+}
+
+.stepCircleActive {
+  background-color: var(--on-surface);
+  border-color: var(--on-surface);
+  color: #ffffff;
+  box-shadow: var(--shadow-warm);
+}
+
+.stepCircleCompleted {
+  background-color: #2e7d32;
+  border-color: #2e7d32;
+  color: #ffffff;
+}
+
+.stepLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  line-height: 1.2;
+}
+
+.stepSub {
+  font-size: 0.6875rem;
+  color: var(--on-surface-variant);
+}
+
+/* Tracking Resi Box */
+.resiBox {
+  background-color: #e3f2fd;
+  border: 1px solid #bbdefb;
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.resiNumber {
+  font-family: monospace;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0d47a1;
+}
+
+/* Item List */
+.itemsSection {
+  border-top: 1px solid var(--outline-variant);
+  padding-top: 1.25rem;
+}
+
+.itemRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px dashed var(--outline-variant);
+}
+
+.itemImg {
+  width: 50px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  border: 1px solid var(--outline-variant);
+}
+
+.itemInfo {
+  flex: 1;
+}
+
+.itemTitle {
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.itemMeta {
+  font-size: 0.75rem;
+  color: var(--on-surface-variant);
+}
+
+.itemPrice {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Shipping & Info Details Grid */
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  background-color: var(--surface-container-low);
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.8125rem;
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statusUNPAID { background-color: #fff3e0; color: #e65100; }
+.statusPENDING_VERIFICATION { background-color: var(--tertiary-container); color: var(--on-tertiary-container); }
+.statusPROCESSING { background-color: var(--primary-container); color: var(--on-primary-container); }
+.statusSHIPPED { background-color: #e3f2fd; color: #1565c0; }
+.statusCOMPLETED { background-color: #e8f5e9; color: #2e7d32; }
+
+/* Mobile Breakpoints */
+@media (max-width: 680px) {
+  .mainContent {
+    padding: 1.25rem 0.85rem 4rem 0.85rem;
+  }
+
+  .pageTitle {
+    font-size: 1.75rem;
+  }
+
+  .searchForm {
+    flex-direction: column;
+  }
+
+  .searchForm button {
+    width: 100%;
+  }
+
+  .stepper {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .stepper::before {
+    display: none;
+  }
+
+  .stepItem {
+    flex-direction: row;
+    text-align: left;
+    gap: 1rem;
+  }
+
+  .orderCard {
+    padding: 1.25rem 1rem;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}
