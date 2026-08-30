@@ -1,0 +1,127 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 27, 25, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.receiptCard {
+  width: 100%;
+  max-width: 420px;
+  background-color: #ffffff;
+  color: #1e1b19;
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  box-shadow: var(--shadow-warm-lg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-family: var(--font-sans);
+}
+
+.receiptHeader {
+  text-align: center;
+  border-bottom: 1px dashed var(--outline-variant);
+  padding-bottom: 1.25rem;
+}
+
+.brandTitle {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+}
+
+.brandSubtitle {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+  font-weight: 600;
+}
+
+.invoiceInfo {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--on-surface-variant);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.itemsTable {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed var(--outline-variant);
+}
+
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+}
+
+.itemLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.itemTitle {
+  font-weight: 600;
+}
+
+.itemMeta {
+  font-size: 0.6875rem;
+  color: var(--on-surface-variant);
+}
+
+.paymentBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed var(--outline-variant);
+}
+
+.breakdownRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalHighlight {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--outline-variant);
+}
+
+.receiptFooter {
+  text-align: center;
+  font-size: 0.6875rem;
+  color: var(--on-surface-variant);
+  line-height: 1.5;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}

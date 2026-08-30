@@ -1,0 +1,190 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 27, 25, 0.55);
+  backdrop-filter: blur(8px);
+  z-index: 210;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal {
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-warm-lg);
+  overflow-y: auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.96); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.closeButton {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-full);
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-surface);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background-color: var(--on-surface);
+  color: #ffffff;
+}
+
+/* Gallery Section */
+.gallerySection {
+  background-color: var(--surface-container);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  max-height: 520px;
+  object-fit: cover;
+}
+
+/* Details Section */
+.detailsSection {
+  padding: 2.5rem 2.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+}
+
+.categoryTag {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+  font-weight: 600;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  color: var(--on-surface);
+  line-height: 1.25;
+  margin-top: -0.5rem;
+}
+
+.price {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.description {
+  font-size: 0.9375rem;
+  color: var(--on-surface-variant);
+  line-height: 1.6;
+}
+
+/* Fabric Info Pill */
+.specBox {
+  background-color: var(--surface-container);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  font-size: 0.8125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border-left: 3px solid var(--tertiary);
+}
+
+.specLabel {
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+/* Size Selection */
+.sizeSelection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sizeTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface);
+}
+
+.sizeGrid {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sizeButton {
+  padding: 0.6rem 1.15rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--outline-variant);
+  background-color: var(--surface-container-low);
+  color: var(--on-surface);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sizeButton:hover {
+  border-color: var(--tertiary);
+  background-color: #ffffff;
+}
+
+.sizeButtonActive {
+  background-color: var(--on-surface);
+  color: #ffffff;
+  border-color: var(--on-surface);
+}
+
+@media (max-width: 768px) {
+  .modal {
+    grid-template-columns: 1fr;
+  }
+
+  .mainImage {
+    min-height: 280px;
+  }
+
+  .detailsSection {
+    padding: 1.5rem;
+  }
+}

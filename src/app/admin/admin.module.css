@@ -1,0 +1,538 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--on-background);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--outline-variant);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.brandLogo {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  color: var(--on-surface);
+  text-transform: uppercase;
+}
+
+.portalBadge {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background: var(--tertiary-container);
+}
+
+.staffInfo {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.staffPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-container-high);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+/* Tab Navigation Bar */
+.tabNav {
+  background-color: var(--surface-container-low);
+  border-bottom: 1px solid var(--outline-variant);
+  padding: 0.75rem 2rem;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.tabButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--on-surface-variant);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tabButton:hover {
+  background-color: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.tabButtonActive {
+  background-color: var(--on-surface);
+  color: #ffffff;
+  box-shadow: var(--shadow-warm-sm);
+}
+
+/* Main Content Area */
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* =========================================
+   1. POS / KASIR TOKO STYLES
+   ========================================= */
+.posGrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.catalogSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.searchBar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.posFilterChips {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.35rem;
+}
+
+.posChip {
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-container-low);
+  border: 1px solid var(--outline-variant);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.posChipActive {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.posProductGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.posCard {
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  box-shadow: var(--shadow-warm-sm);
+  transition: all 0.2s ease;
+}
+
+.posCard:hover {
+  border-color: var(--tertiary);
+  box-shadow: var(--shadow-warm);
+}
+
+.posImage {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.posTitle {
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.posPrice {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.posVariantGrid {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.posSizeButton {
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.posSizeButton:hover:not(:disabled) {
+  background-color: var(--on-surface);
+  color: #ffffff;
+}
+
+.posSizeButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* POS Cart / Register Panel */
+.registerPanel {
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-warm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: sticky;
+  top: 5.5rem;
+}
+
+.registerTitle {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cartList {
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid var(--outline-variant);
+  border-bottom: 1px solid var(--outline-variant);
+  padding: 0.85rem 0;
+}
+
+.cartItemRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+}
+
+.methodSelector {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
+  background-color: var(--surface-container);
+  padding: 0.25rem;
+  border-radius: var(--radius-md);
+}
+
+.methodBtn {
+  padding: 0.5rem 0.25rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.methodBtnActive {
+  background-color: #ffffff;
+  color: var(--on-surface);
+  box-shadow: var(--shadow-warm-sm);
+}
+
+.quickMoneyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.quickMoneyBtn {
+  padding: 0.35rem 0.25rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quickMoneyBtn:hover {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.qrisBox {
+  background-color: #ffffff;
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qrisImg {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+/* =========================================
+   2. ONLINE ORDERS VERIFICATION STYLES
+   ========================================= */
+.ordersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ordersFilterBar {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.orderCard {
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-warm-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--outline-variant);
+  padding-bottom: 0.85rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.orderBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statusUNPAID {
+  background-color: #fff3e0;
+  color: #e65100;
+}
+
+.statusPENDING_VERIFICATION {
+  background-color: var(--tertiary-container);
+  color: var(--on-tertiary-container);
+}
+
+.statusPROCESSING {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+.statusSHIPPED {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.statusCOMPLETED {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* =========================================
+   3. INVENTORY MANAGEMENT STYLES
+   ========================================= */
+.inventoryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inventoryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stockTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-warm-sm);
+  border: 1px solid var(--outline-variant);
+}
+
+.stockTable th {
+  background-color: var(--surface-container);
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
+}
+
+.stockTable td {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--outline-variant);
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.stockAlert {
+  color: var(--error);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.stockGood {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.stockControlGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.stockBtn {
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.stockBtn:hover {
+  background-color: var(--on-surface);
+  color: #ffffff;
+}
+
+/* Modal Form for Add Product */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 27, 25, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modalCard {
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: var(--shadow-warm-lg);
+  overflow-y: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .posGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .orderBody {
+    grid-template-columns: 1fr;
+  }
+}

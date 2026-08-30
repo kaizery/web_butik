@@ -1,0 +1,220 @@
+.navbarContainer {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--outline-variant);
+  transition: all 0.3s ease;
+}
+
+.mainNav {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 1.15rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Left: Brand Identity in Left Corner */
+.brandLeft {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  text-decoration: none;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.brandLogo {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  letter-spacing: 0.16em;
+  font-weight: 500;
+  color: var(--on-surface);
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.brandSubtext {
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tertiary);
+  font-weight: 600;
+  padding-left: 0.5rem;
+  border-left: 1px solid var(--outline-variant);
+}
+
+/* Center: Category Navigation Links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 2.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  color: var(--on-surface);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  position: relative;
+  transition: color 0.25s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--tertiary);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navLink:hover::after,
+.navLinkActive::after {
+  width: 100%;
+}
+
+.navLink:hover,
+.navLinkActive {
+  color: var(--tertiary);
+}
+
+/* Right: Actions (Cart & Profile) */
+.navActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.85rem;
+  flex-shrink: 0;
+}
+
+.actionButton {
+  background: transparent;
+  border: none;
+  color: var(--on-surface);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45rem;
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.actionButton:hover {
+  background-color: var(--surface-container);
+  color: var(--tertiary);
+}
+
+.cartBadge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userBadgeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.userBadgeLink:hover {
+  background-color: var(--surface-container-highest);
+}
+
+/* Mobile Hamburger Toggle */
+.mobileToggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--on-surface);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+/* Mobile Slide Down Menu */
+.mobileMenu {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface-container-lowest);
+  border-top: 1px solid var(--outline-variant);
+  padding: 1.5rem 2rem;
+  gap: 1.25rem;
+  animation: slideDown 0.25s ease;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mobileCategoryLink {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--on-surface);
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  transition: color 0.2s ease;
+}
+
+.mobileCategoryLink:hover {
+  color: var(--tertiary);
+}
+
+@media (max-width: 960px) {
+  .mainNav {
+    padding: 1rem 1.25rem;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .mobileToggle {
+    display: flex;
+  }
+
+  .brandLogo {
+    font-size: 1.6rem;
+  }
+}

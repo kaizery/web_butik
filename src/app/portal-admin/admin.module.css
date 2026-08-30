@@ -1,0 +1,341 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--on-background);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background-color: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--outline-variant);
+  padding: 1.15rem 2.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.brandGroup {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.brandLogo {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  color: var(--on-surface);
+  text-transform: uppercase;
+}
+
+.portalBadge {
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #b71c1c;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+}
+
+.adminInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.adminPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: var(--radius-full);
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+/* Tab Navigation */
+.tabNav {
+  background-color: var(--surface-container-low);
+  border-bottom: 1px solid var(--outline-variant);
+  padding: 0.85rem 2.25rem;
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+}
+
+.tabButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.65rem;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: var(--on-surface-variant);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tabButton:hover {
+  background-color: var(--surface-container);
+  color: var(--on-surface);
+}
+
+.tabButtonActive {
+  background-color: var(--on-surface);
+  color: #ffffff;
+  box-shadow: var(--shadow-warm-sm);
+}
+
+/* Main Content */
+.mainContent {
+  flex: 1;
+  padding: 2.25rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* =========================================
+   1. SALES & CASHFLOW OVERVIEW
+   ========================================= */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.kpiCard {
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-warm-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kpiLabel {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.kpiValue {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  line-height: 1.1;
+}
+
+.kpiSub {
+  font-size: 0.75rem;
+  color: var(--tertiary);
+  font-weight: 500;
+}
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.analyticsCard {
+  background-color: var(--surface-container-lowest);
+  border: 1px solid var(--outline-variant);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-warm-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breakdownList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.breakdownItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+}
+
+/* =========================================
+   2. ACTIVITY LOGS
+   ========================================= */
+.logsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-warm-sm);
+  border: 1px solid var(--outline-variant);
+}
+
+.logsTable th {
+  background-color: var(--surface-container);
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--on-surface-variant);
+}
+
+.logsTable td {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--outline-variant);
+  font-size: 0.8125rem;
+}
+
+.actionPill {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  font-family: monospace;
+  background-color: var(--surface-container-high);
+  color: var(--on-surface);
+}
+
+/* =========================================
+   3. STAFF MANAGEMENT
+   ========================================= */
+.staffHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.staffTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--surface-container-lowest);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-warm-sm);
+  border: 1px solid var(--outline-variant);
+}
+
+.staffTable th {
+  background-color: var(--surface-container);
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+}
+
+.staffTable td {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid var(--outline-variant);
+  font-size: 0.875rem;
+}
+
+.roleAdmin {
+  color: #b71c1c;
+  font-weight: 700;
+}
+
+.roleCashier {
+  color: #1b5e20;
+  font-weight: 700;
+}
+
+.deleteStaffBtn {
+  background: transparent;
+  border: 1px solid #ffcdd2;
+  color: #d32f2f;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.15s ease;
+}
+
+.deleteStaffBtn:hover {
+  background-color: #ffebee;
+  border-color: #d32f2f;
+}
+
+.deleteStaffBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--outline-variant);
+  color: var(--outline);
+}
+
+/* Modal */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(30, 27, 25, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modalCard {
+  width: 100%;
+  max-width: 540px;
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  box-shadow: var(--shadow-warm-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .analyticsGrid {
+    grid-template-columns: 1fr;
+  }
+}

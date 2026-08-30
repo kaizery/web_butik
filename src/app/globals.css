@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+
+:root {
+  /* Color Palette from DESIGN.md (Ethereal Editorial) */
+  --surface: #fff8f6;
+  --surface-dim: #e1d8d5;
+  --surface-bright: #fff8f6;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #fbf2ef;
+  --surface-container: #f5ece9;
+  --surface-container-high: #efe6e3;
+  --surface-container-highest: #e9e1de;
+  --on-surface: #1e1b19;
+  --on-surface-variant: #4f4442;
+  --inverse-surface: #342f2e;
+  --inverse-on-surface: #f8efec;
+  --outline: #817472;
+  --outline-variant: #d3c3c0;
+  --surface-tint: #6f5955;
+  
+  --primary: #6f5955;
+  --on-primary: #ffffff;
+  --primary-container: #f2d5cf;
+  --on-primary-container: #715b56;
+  --inverse-primary: #dcc0bb;
+  
+  --secondary: #5e5e5c;
+  --on-secondary: #ffffff;
+  --secondary-container: #e1dfdc;
+  --on-secondary-container: #636360;
+  
+  --tertiary: #775a19;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #ffd68a;
+  --on-tertiary-container: #795b1b;
+  
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  
+  --background: #fff8f6;
+  --on-background: #1e1b19;
+
+  /* Typography */
+  --font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Radii */
+  --radius-sm: 0.125rem;
+  --radius-default: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --unit: 8px;
+  --container-max: 1280px;
+
+  /* Shadows - Warm Diffused */
+  --shadow-warm-sm: 0 4px 12px rgba(74, 69, 67, 0.05);
+  --shadow-warm: 0 12px 32px -4px rgba(74, 69, 67, 0.08), 0 4px 12px -2px rgba(74, 69, 67, 0.04);
+  --shadow-warm-lg: 0 24px 48px -12px rgba(74, 69, 67, 0.12), 0 8px 16px -4px rgba(74, 69, 67, 0.06);
+  --shadow-gold: 0 8px 24px -4px rgba(119, 90, 25, 0.15);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 248, 246, 0.82);
+  --glass-border: rgba(211, 195, 192, 0.5);
+  --glass-blur: blur(16px);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--on-background);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--on-surface);
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+input, textarea, select {
+  font-family: var(--font-sans);
+  color: var(--on-surface);
+}
+
+/* Custom Scrollbar for Luxury Look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-container-low);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--outline-variant);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--outline);
+}
+
+/* Hide Next.js Development Indicators Badge */
+nextjs-portal,
+[data-nextjs-dev-overlay-badge],
+[data-nextjs-toast] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Global Print Styles for POS Receipts */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-receipt,
+  #printable-receipt * {
+    visibility: visible;
+  }
+  #printable-receipt {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 1.5rem;
+    box-shadow: none;
+    background-color: #ffffff;
+    z-index: 9999;
+  }
+  #printable-receipt button,
+  #printable-receipt [class*="actionButtons"] {
+    display: none !important;
+  }
+}
