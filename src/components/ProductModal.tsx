@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "./productModal.module.css";
 import { Product, ProductVariant } from "@/types/product";
-import { X, ShoppingBag, ShieldCheck, Sparkles, Check } from "lucide-react";
+import { X, ShoppingBag, ShieldCheck, Sparkles, Check, ArrowRight } from "lucide-react";
 import { Button } from "./ui/Button";
 
 interface ProductModalProps {
@@ -14,6 +15,7 @@ interface ProductModalProps {
 }
 
 export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductModalProps) {
+  const router = useRouter();
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant | null>(
     product?.variants[0] || null
   );
@@ -36,10 +38,18 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
   };
 
   const handleAdd = () => {
-    if (currentVariant) {
+    if (currentVariant && currentVariant.stock > 0) {
       onAddToCart(product, currentVariant);
       setIsAdded(true);
       setTimeout(() => setIsAdded(false), 1500);
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (currentVariant && currentVariant.stock > 0) {
+      onAddToCart(product, currentVariant);
+      onClose();
+      router.push("/checkout");
     }
   };
 
@@ -66,7 +76,7 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
           {/* Material & Care */}
           {product.material && (
             <div className={styles.specBox}>
-              <span className={styles.specLabel}>Material & Komposisi Kain:</span>
+              <span className={styles.specLabel}>Material &amp; Komposisi Kain:</span>
               <span>{product.material}</span>
               {product.careInstructions && (
                 <span style={{ color: "var(--on-surface-variant)", fontSize: "0.75rem" }}>
@@ -101,10 +111,11 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
             </div>
           </div>
 
-          {/* Actions */}
-          <div style={{ marginTop: "0.5rem" }}>
+          {/* Actions: Tambahkan ke Kantong & Bayar Sekarang */}
+          <div className={styles.actionButtonGroup}>
             <Button
-              variant="primary"
+              type="button"
+              variant="secondary"
               fullWidth
               size="lg"
               onClick={handleAdd}
@@ -112,10 +123,22 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
               leftIcon={isAdded ? <Check size={18} /> : <ShoppingBag size={18} />}
             >
               {isAdded
-                ? "Telah Ditambahkan ke Kantong!"
+                ? "Ditambahkan!"
                 : currentVariant?.stock > 0
-                ? `Tambahkan ke Kantong (${currentVariant.size})`
-                : "Stok Ukuran Ini Habis"}
+                ? `+ Kantong (${currentVariant.size})`
+                : "Stok Habis"}
+            </Button>
+
+            <Button
+              type="button"
+              variant="primary"
+              fullWidth
+              size="lg"
+              onClick={handleBuyNow}
+              disabled={!currentVariant || currentVariant.stock === 0}
+              rightIcon={<ArrowRight size={18} />}
+            >
+              Bayar Sekarang
             </Button>
           </div>
         </div>

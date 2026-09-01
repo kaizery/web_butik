@@ -175,6 +175,13 @@
   border-color: var(--on-surface);
 }
 
+.actionButtonGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
 @media (max-width: 768px) {
   .modal {
     grid-template-columns: 1fr;
@@ -186,5 +193,12 @@
 
   .detailsSection {
     padding: 1.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .actionButtonGroup {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 }
