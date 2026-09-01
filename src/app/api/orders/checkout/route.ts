@@ -151,8 +151,18 @@ export async function POST(request: Request) {
     });
   } catch (error: any) {
     console.error("Online checkout error:", error);
+    let userMsg = error.message || "Terjadi kesalahan saat memproses pesanan.";
+    if (
+      userMsg.includes("prisma") ||
+      userMsg.includes("invocation") ||
+      userMsg.includes("Column") ||
+      userMsg.includes("type")
+    ) {
+      userMsg =
+        "Gagal menyimpan bukti pembayaran. Silakan unggah foto bukti transfer Anda kembali atau hubungi WhatsApp Butik.";
+    }
     return NextResponse.json(
-      { error: error.message || "Terjadi kesalahan saat memproses pesanan." },
+      { error: userMsg },
       { status: 500 }
     );
   }

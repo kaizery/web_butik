@@ -96,18 +96,41 @@ export default function CheckoutPage() {
     }
   };
 
-  // Handle Slip Upload
+  // Handle Slip Upload with automatic high-speed compression
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 3 * 1024 * 1024) {
-        setErrorMessage("Ukuran file bukti transfer maksimal 3MB.");
-        return;
-      }
       const reader = new FileReader();
-      reader.onload = () => {
-        setProofImage(reader.result as string);
-        setErrorMessage(null);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          // Resize on canvas to max 800x800 with 0.75 quality (super crisp for receipt yet only ~40KB)
+          const canvas = document.createElement("canvas");
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 800;
+
+          if (width > height && width > maxDim) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else if (height > maxDim) {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            const compressedBase64 = canvas.toDataURL("image/jpeg", 0.75);
+            setProofImage(compressedBase64);
+            setErrorMessage(null);
+          } else {
+            setProofImage(event.target?.result as string);
+          }
+        };
+        img.src = event.target?.result as string;
       };
       reader.readAsDataURL(file);
     }
