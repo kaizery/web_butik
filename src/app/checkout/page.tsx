@@ -25,6 +25,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 
+import { loadUserCart, saveUserCart, getCurrentUser } from "@/lib/cartStorage";
+
 export default function CheckoutPage() {
   const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -46,30 +48,16 @@ export default function CheckoutPage() {
   const [orderResult, setOrderResult] = useState<any>(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // 1. Load cart
-      const savedCart = localStorage.getItem("aura_cart");
-      if (savedCart) {
-        try {
-          setCartItems(JSON.parse(savedCart));
-        } catch {
-          // ignore
-        }
-      }
+    // 1. Load user-scoped cart
+    setCartItems(loadUserCart());
 
-      // 2. Load user if logged in
-      const savedUser = localStorage.getItem("aura_boutique_user");
-      if (savedUser) {
-        try {
-          const user = JSON.parse(savedUser);
-          setCurrentUser(user);
-          setCustomerName(user.name || "");
-          setCustomerEmail(user.email || "");
-          if (user.phone) setCustomerPhone(user.phone);
-        } catch {
-          // ignore
-        }
-      }
+    // 2. Load user if logged in
+    const user = getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+      setCustomerName(user.name || "");
+      setCustomerEmail(user.email || "");
+      if (user.phone) setCustomerPhone(user.phone);
     }
   }, []);
 
@@ -180,10 +168,9 @@ export default function CheckoutPage() {
         throw new Error(data.error || "Gagal membuat pesanan.");
       }
 
-      // Clear local cart
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("aura_cart");
-      }
+      // Clear local cart with user-scoped storage manager
+      saveUserCart([]);
+      setCartItems([]);
 
       setOrderResult(data);
     } catch (err: any) {

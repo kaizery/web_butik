@@ -22,7 +22,9 @@ import {
   ShoppingBag,
   RotateCw,
   Sparkles,
+  User,
 } from "lucide-react";
+import { getCurrentUser } from "@/lib/cartStorage";
 
 function TrackOrderContent() {
   const searchParams = useSearchParams();
@@ -40,10 +42,16 @@ function TrackOrderContent() {
   // Keep track of previous order status for live change detection
   const previousStatusMap = useRef<Record<string, string>>({});
 
-  // Auto search if invoice query param is present in URL
+  // Auto search if invoice query param is present or logged-in user phone
   useEffect(() => {
     if (initialInvoice) {
       handleSearch(initialInvoice, false);
+    } else {
+      const user = getCurrentUser();
+      if (user && user.phone) {
+        setSearchQuery(user.phone);
+        handleSearch(user.phone, false);
+      }
     }
   }, [initialInvoice]);
 

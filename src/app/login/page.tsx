@@ -16,6 +16,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
+import { restoreUserCartOnLogin } from "@/lib/cartStorage";
 
 type LoginRole = "CUSTOMER" | "ADMIN";
 
@@ -76,6 +77,7 @@ export default function LoginPage() {
 
       if (typeof window !== "undefined") {
         localStorage.setItem("aura_boutique_user", JSON.stringify(data.user));
+        restoreUserCartOnLogin(data.user);
       }
 
       setTimeout(() => {

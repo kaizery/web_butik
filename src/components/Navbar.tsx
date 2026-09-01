@@ -7,6 +7,8 @@ import styles from "./navbar.module.css";
 import { ShoppingBag, User, LogOut, ShieldCheck, Menu, X } from "lucide-react";
 import { Button } from "./ui/Button";
 
+import { clearUserSessionOnLogout, getCurrentUser } from "@/lib/cartStorage";
+
 interface NavbarProps {
   cartCount: number;
   onOpenCart: () => void;
@@ -29,24 +31,20 @@ export function Navbar({ cartCount, onOpenCart }: NavbarProps) {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("aura_boutique_user");
-      if (stored) {
-        try {
-          setCurrentUser(JSON.parse(stored));
-        } catch {
-          // ignore
-        }
-      }
-    }
+    const user = getCurrentUser();
+    setCurrentUser(user);
   }, []);
 
-  const handleLogout = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("aura_boutique_user");
-      setCurrentUser(null);
-      router.push("/");
+  const handleLogout = async () => {
+    clearUserSessionOnLogout();
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch {
+      // ignore
     }
+    setCurrentUser(null);
+    setMobileMenuOpen(false);
+    router.push("/");
   };
 
   // Navigasi Section Body Halaman Utama

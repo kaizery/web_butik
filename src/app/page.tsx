@@ -19,6 +19,8 @@ import {
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 
+import { loadUserCart, saveUserCart } from "@/lib/cartStorage";
+
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,33 +30,35 @@ export default function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Load cart and check URL category parameter on mount
+  // Load user-scoped cart and check URL category parameter on mount
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedCart = localStorage.getItem("aura_cart");
-      if (savedCart) {
-        try {
-          setCartItems(JSON.parse(savedCart));
-        } catch {
-          // ignore
-        }
-      }
+    setCartItems(loadUserCart());
 
-      // Read category from URL if present
+    // Read category from URL if present
+    if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       const catParam = params.get("category");
       if (catParam) {
         setActiveCategory(catParam);
       }
     }
-  }, []);
 
-  // Save cart to local storage whenever it changes
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("aura_cart", JSON.stringify(cartItems));
-    }
-  }, [cartItems]);
+    // Listen for cross-component cart updates (e.g. login/logout)
+    const handleCartSync = (e: any) => {
+      if (e.detail?.items) {
+        setCartItems(e.detail.items);
+      } else {
+        setCartItems(loadUserCart());
+      }
+    };
+
+    window.addEventListener("aura_cart_updated", handleCartSync);
+    window.addEventListener("storage", handleCartSync);
+    return () => {
+      window.removeEventListener("aura_cart_updated", handleCartSync);
+      window.removeEventListener("storage", handleCartSync);
+    };
+  }, []);
 
   // Fetch products from backend MySQL API
   useEffect(() => {
@@ -75,17 +79,17 @@ export default function HomePage() {
     loadProducts();
   }, [activeCategory]);
 
-  // Cart operations
+  // Cart operations with user-scoped persistence
   const handleAddToCart = (product: Product, variant: ProductVariant) => {
     setCartItems((prev) => {
       const existingIndex = prev.findIndex(
         (item) => item.product.id === product.id && item.selectedVariant.id === variant.id
       );
 
+      let updated: CartItem[];
       if (existingIndex > -1) {
-        const updated = [...prev];
+        updated = [...prev];
         updated[existingIndex].quantity += 1;
-        return updated;
       } else {
         const newItem: CartItem = {
           id: `${product.id}-${variant.id}-${Date.now()}`,
@@ -93,8 +97,11 @@ export default function HomePage() {
           selectedVariant: variant,
           quantity: 1,
         };
-        return [...prev, newItem];
+        updated = [...prev, newItem];
       }
+
+      saveUserCart(updated);
+      return updated;
     });
 
     setIsCartOpen(true);
@@ -105,13 +112,19 @@ export default function HomePage() {
       handleRemoveCartItem(itemId);
       return;
     }
-    setCartItems((prev) =>
-      prev.map((item) => (item.id === itemId ? { ...item, quantity: newQuantity } : item))
-    );
+    setCartItems((prev) => {
+      const updated = prev.map((item) => (item.id === itemId ? { ...item, quantity: newQuantity } : item));
+      saveUserCart(updated);
+      return updated;
+    });
   };
 
   const handleRemoveCartItem = (itemId: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== itemId));
+    setCartItems((prev) => {
+      const updated = prev.filter((item) => item.id !== itemId);
+      saveUserCart(updated);
+      return updated;
+    });
   };
 
   const handleOpenQuickView = (product: Product) => {
