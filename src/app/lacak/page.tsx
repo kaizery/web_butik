@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import styles from "./lacak.module.css";
@@ -20,6 +20,8 @@ import {
   ExternalLink,
   AlertTriangle,
   ShoppingBag,
+  RotateCw,
+  Sparkles,
 } from "lucide-react";
 
 function TrackOrderContent() {
@@ -28,26 +30,43 @@ function TrackOrderContent() {
 
   const [searchQuery, setSearchQuery] = useState(initialInvoice);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [orders, setOrders] = useState<any[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedResi, setCopiedResi] = useState(false);
+  const [lastSyncTime, setLastSyncTime] = useState<string>("");
+  const [statusUpdateToast, setStatusUpdateToast] = useState<string | null>(null);
+
+  // Keep track of previous order status for live change detection
+  const previousStatusMap = useRef<Record<string, string>>({});
 
   // Auto search if invoice query param is present in URL
   useEffect(() => {
     if (initialInvoice) {
-      handleSearch(initialInvoice);
+      handleSearch(initialInvoice, false);
     }
   }, [initialInvoice]);
 
-  const handleSearch = async (queryToSearch?: string) => {
+  // Real-Time Live Polling: Auto-sync order status every 3.5 seconds while viewing
+  useEffect(() => {
+    if (orders.length === 0 || !searchQuery.trim()) return;
+
+    const interval = setInterval(() => {
+      handleSearch(searchQuery, true); // silent background fetch
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [orders.length, searchQuery]);
+
+  const handleSearch = async (queryToSearch?: string, isSilent = false) => {
     const query = queryToSearch !== undefined ? queryToSearch : searchQuery;
     if (!query.trim()) {
-      setErrorMessage("Masukkan Nomor Invoice atau Nomor WhatsApp Anda.");
+      if (!isSilent) setErrorMessage("Masukkan Nomor Invoice atau Nomor WhatsApp Anda.");
       return;
     }
 
-    setIsLoading(true);
-    setErrorMessage(null);
+    if (!isSilent) setIsLoading(true);
+    else setIsRefreshing(true);
 
     try {
       const isPhone = /^[0-9+]+$/.test(query.trim());
@@ -62,12 +81,42 @@ function TrackOrderContent() {
         throw new Error(data.error || "Pesanan tidak ditemukan.");
       }
 
-      setOrders(data.orders || []);
+      const fetchedOrders = data.orders || [];
+
+      // Check if any order status changed live
+      fetchedOrders.forEach((o: any) => {
+        const prev = previousStatusMap.current[o.invoiceNumber];
+        if (prev && prev !== o.status) {
+          const statusName =
+            o.status === "PROCESSING"
+              ? "Sedang Dikemas (Packing)"
+              : o.status === "SHIPPED"
+              ? "Dalam Pengiriman (Resi Diterbitkan)"
+              : o.status === "COMPLETED"
+              ? "Pesanan Selesai / Diterima"
+              : o.status;
+
+          setStatusUpdateToast(
+            `Status Pesanan ${o.invoiceNumber} baru saja diperbarui oleh Butik menjadi: ${statusName}!`
+          );
+
+          // Clear toast after 6 seconds
+          setTimeout(() => setStatusUpdateToast(null), 6000);
+        }
+        previousStatusMap.current[o.invoiceNumber] = o.status;
+      });
+
+      setOrders(fetchedOrders);
+      setLastSyncTime(new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", second: "2-digit" }));
+      setErrorMessage(null);
     } catch (err: any) {
-      setErrorMessage(err.message || "Gagal melacak pesanan.");
-      setOrders([]);
+      if (!isSilent) {
+        setErrorMessage(err.message || "Gagal melacak pesanan.");
+        setOrders([]);
+      }
     } finally {
-      setIsLoading(false);
+      if (!isSilent) setIsLoading(false);
+      setIsRefreshing(false);
     }
   };
 
@@ -142,11 +191,12 @@ function TrackOrderContent() {
       {/* Header */}
       <div className={styles.headerSection}>
         <span className={styles.badge}>
-          <Truck size={13} /> Real-Time Order Tracking
+          <Truck size={13} /> Real-Time Live Order Tracking
         </span>
         <h1 className={styles.pageTitle}>Lacak Status Pesanan Butik</h1>
         <p className={styles.pageSubtitle}>
-          Pantau status verifikasi pembayaran, proses pengemasan gaun, dan nomor resi pengiriman Anda secara langsung.
+          Pantau status verifikasi pembayaran, proses pengemasan gaun, dan nomor resi pengiriman Anda secara langsung
+          tanpa perlu refresh halaman.
         </p>
       </div>
 
@@ -155,7 +205,7 @@ function TrackOrderContent() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleSearch();
+            handleSearch(searchQuery, false);
           }}
           className={styles.searchForm}
         >
@@ -172,6 +222,23 @@ function TrackOrderContent() {
           </Button>
         </form>
       </div>
+
+      {/* Live Status Toast Banner */}
+      {statusUpdateToast && (
+        <div className={styles.statusAlertToast}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <Sparkles size={20} color="#2e7d32" />
+            <span>{statusUpdateToast}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setStatusUpdateToast(null)}
+            style={{ background: "none", border: "none", cursor: "pointer", color: "#1b5e20", fontWeight: 700 }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Feedback Alerts */}
       {errorMessage && (
@@ -196,6 +263,27 @@ function TrackOrderContent() {
       {/* Results List */}
       {orders.length > 0 && (
         <div>
+          {/* Live Sync Info Header */}
+          <div className={styles.liveStatusHeader}>
+            <div className={styles.liveDotGroup}>
+              <span className={styles.pulsingDot} />
+              <span>Live Sync Aktif (Otomatis Terupdate)</span>
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <span>Sinkron: {lastSyncTime || "Baru saja"}</span>
+              <button
+                type="button"
+                className={styles.refreshButton}
+                onClick={() => handleSearch(searchQuery, false)}
+                title="Segarkan data sekarang"
+              >
+                <RotateCw size={13} style={{ animation: isRefreshing ? "spin 1s linear infinite" : "none" }} />
+                <span>Segarkan</span>
+              </button>
+            </div>
+          </div>
+
           {orders.map((order) => {
             const currentStep = getStepIndex(order.status);
 

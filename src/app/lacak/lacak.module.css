@@ -91,6 +91,96 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Live Sync Indicator & Auto Pulse */
+.liveStatusHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background-color: var(--surface-container-low);
+  padding: 0.55rem 0.95rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--outline-variant);
+  font-size: 0.75rem;
+  color: var(--on-surface-variant);
+  margin-bottom: 1.25rem;
+}
+
+.liveDotGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+.pulsingDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2e7d32;
+  box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7);
+  animation: pulseGreen 1.8s infinite;
+}
+
+@keyframes pulseGreen {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(46, 125, 50, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
+  }
+}
+
+.refreshButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+}
+
+.refreshButton:hover {
+  background-color: var(--surface-container);
+}
+
+/* Status Change Alert Banner */
+.statusAlertToast {
+  background-color: #e8f5e9;
+  border: 1.5px solid #2e7d32;
+  color: #1b5e20;
+  border-radius: var(--radius-lg);
+  padding: 0.85rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-warm-sm);
+  animation: slideDown 0.35s ease;
+  margin-bottom: 1.25rem;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .orderCardHeader {
   display: flex;
   justify-content: space-between;
